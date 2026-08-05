@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Polytechnic Hostel Registration</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Six+Caps&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img  src="img/logo.png.png" alt="Polytechnic Logo" />
+    </div>
+    <nav>
+      <a href="aboutUs.html">ABOUT US</a>
+    </nav>
+  </header>
+
+  <main class="background">
+    <div class="box-container">
+      <div class="left-panel">
+        <img src="img/hostel.jpg.png" alt="Polytechnic Hostel" />
+        <h1>POLYTECHNIC HOSTEL</h1>
+      </div>
+
+      <div class="right-panel">
+        <h2>Create an account</h2>
+        <p>already have an account? <a href="#">Log in</a></p>
+        <form action="RegisterServlet" method="post">
+          <input type="text" placeholder="Name:" required />
+          <input type="text" placeholder="ID:" required />
+          <input type="email" placeholder="Email:" required />
+          <input type="email" placeholder="Confirm Email:" required />
+          
+          <div class="password-field">
+            <input type="password" placeholder="Password:" required />
+            <span class="eye">👁️</span>
+          </div>
+          <div class="password-field">
+            <input type="password" placeholder="Confirm Password:" required />
+            <span class="eye">👁️</span>
+          </div>
+
+          <label class="policy">
+            <input type="checkbox" required /> Agree to policy
+          </label>
+
+          <button type="submit">Create Account</button>
+
+          <p class="terms">
+            By clicking Agree to policy, you are agreeing to the
+            <a href="#">Terms of Use</a> including the arbitration clause and you
+            are acknowledging the <a href="#">Privacy Policy</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

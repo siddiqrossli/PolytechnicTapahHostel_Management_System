@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Update Profile</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+     <div class="logo">
+    <img src="img/logo.png.png" alt="Polytechnic Logo">
+  </div>
+     <nav>
+    <button class="logout-btn">Log Out</button>
+  </nav>
+  </header>
+
+  <main class="update-profile-container">
+    <div class="form-box">
+      <h1>Polytechnic Hostel</h1>
+      <h2>Update Profile</h2>
+      <form action="update_profile.php" method="POST">
+        <div class="form-group">
+          <input type="text" name="gender" placeholder="Gender" required>
+        </div>
+        <div class="form-group">
+          <input type="text" name="phone" placeholder="Phone Number" required>
+        </div>
+        <div class="form-group">
+          <input type="text" name="emergency" placeholder="Emergency Number" required>
+        </div>
+        <div class="form-group income-group">
+          <input type="text" name="income" placeholder="Household Income" required>
+          <span class="eye-icon">&#128065;</span>
+        </div>
+
+        <div class="form-buttons">
+          <button type="submit" class="save-btn">Save</button>
+          <button type="reset" class="cancel-btn">Cancel</button>
+        </div>
+      </form>
+
+       <div class="button-group">
+        <a href="change_password.html" class="cprof-button">Change Password</a>
+        <a href="change_phonnum.html" class="cprof-button">Change Phone Number</a>
+        <a href="change_mail.html" class="cprof-button">Change E-Mail</a>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

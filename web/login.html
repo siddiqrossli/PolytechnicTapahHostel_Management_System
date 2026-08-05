@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Polytechnic Hostel</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+ 
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img  src="img/logo.png.png" alt="Logo" />
+    </div>
+    <nav>
+      <a href="aboutUs.html">ABOUT US</a>
+    </nav>
+  </header>
+
+  <section class="login-section">
+    <div class="overlay"></div>
+    <div class="login-box">
+      <h1><strong>Polytechnic Hostel</strong></h1>
+      <h2>Welcome back</h2>
+      <p>Please enter your details to sign in.</p>
+      <p class="role-title"><strong>Roles :</strong></p>
+      <div class="roles">
+        <div class="role" onclick="selectRole('student')" id="student-role">
+          <img src="/img/student.png" alt="Student Icon">
+          <p>Student</p>
+        </div>
+        <div class="role" onclick="selectRole('staff')" id="staff-role">
+          <img src="/img/staff.png" alt="Staff Icon">
+          <p>Staff</p>
+        </div>
+      </div>
+
+      <form id="login-form" action="login.php" method="POST">
+        <input type="hidden" name="role" id="selected-role" value="">
+        
+        <label>Username</label>
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" name="username" placeholder="Enter Username" required>
+        </div>
+
+        <label>Password</label>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" name="password" placeholder="Enter Password" required>
+        </div>
+
+        <button type="submit" class="login-btn">Log in</button>
+      </form>
+
+      <p class="signup-text">Don’t have an account? <a href="register.html">Create Account</a></p>
+    </div>
+  </section>
+
+  <script>
+    let currentSelection = null;
+
+    function selectRole(role) {
+      // Update hidden input
+      document.getElementById('selected-role').value = role;
+
+      // Remove highlight from both
+      document.getElementById('student-role').classList.remove('selected-role');
+      document.getElementById('staff-role').classList.remove('selected-role');
+
+      // Highlight selected
+      document.getElementById(role + '-role').classList.add('selected-role');
+    }
+  </script>
+
+</body>
+</html>

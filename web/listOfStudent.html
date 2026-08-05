@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - Students</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Consistent Dashboard Styles */
+    .welcome-box {
+      background: #c85454;
+      border-radius: 20px;
+      color: white;
+      padding: 25px;
+      min-height: 75vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    
+    .title-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .search-container {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    .search-input {
+      padding: 8px 15px;
+      border-radius: 20px;
+      border: none;
+      background-color: #7a3a3a;
+      color: white;
+      width: 200px;
+    }
+    
+    .search-button {
+      background-color: #894142;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .filter-buttons {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+    
+    .filter-btn {
+      background-color: #894142;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+    
+    .filter-btn.active {
+      background-color: #4CAF50;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .action-btn {
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.9em;
+    }
+    
+    .export-btn {
+      background-color: #FF9800;
+    }
+    
+    .table-scroll-container {
+      overflow-y: auto;
+      max-height: 55vh;
+      margin-top: 15px;
+      border-radius: 10px;
+      flex-grow: 1;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: rgba(137, 65, 66, 0.95);
+      color: white;
+    }
+    
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #7a3a3a;
+    }
+    
+    th {
+      background-color: #7a3a3a;
+      position: sticky;
+      top: 0;
+      font-weight: bold;
+    }
+    
+    tr:hover {
+      background-color: rgba(122, 58, 58, 0.5);
+    }
+    
+    .status-approved {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+    
+    .status-not-approved {
+      color: #f44336;
+      font-weight: bold;
+    }
+    
+    .status-pending {
+      color: #FFC107;
+      font-weight: bold;
+    }
+    
+    .merit-high {
+      color: #4CAF50;
+    }
+    
+    .merit-medium {
+      color: #FFC107;
+    }
+    
+    .merit-low {
+      color: #f44336;
+    }
+    
+    .action-cell {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .icon-btn {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .icon-btn:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+    
+    .edit-btn {
+      color: #2196F3;
+    }
+    
+    .delete-btn {
+      color: #f44336;
+    }
+    
+    .view-btn {
+      color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="img/logo.png" alt="Logo" />
+    </div>
+    <button class="logout-btn">Log Out</button>
+  </header>
+  <div class="dashboard-container">
+    <div class="sidebar">
+      <div>
+        <div class="student-card">
+          <img src="img/student.png" alt="Profile" class="profile-pic" />
+          <h3>AMEER FARHAN</h3>
+          <p>206787</p>
+          <p>Admin</p>
+        </div>
+        <button class="change-links button">VIEW MAINTENANCE</button>
+        <button class="change-links button">VIEW STAFF</button>
+        <button class="change-links button active">VIEW STUDENT</button>
+        <button class="change-links button">VIEW ROOM</button>
+        <button class="change-links button">VIEW BILLS</button>
+      </div>
+    </div>
+
+    <div class="main-dashboard">
+      <div class="welcome-box">
+        
+        <div class="table-header">
+          <div class="title-container">
+            <h2 class="table-title">Student List</h2>
+            <button class="action-btn">Add Student</button>
+          </div>
+          
+          <div class="search-container">
+            <input type="text" placeholder="Search students..." class="search-input">
+            <button class="search-button">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <div class="filter-buttons">
+          <button class="filter-btn active">All Students</button>
+          <button class="filter-btn">Approved</button>
+          <button class="filter-btn">Pending</button>
+          <button class="filter-btn">Not Approved</button>
+          <button class="filter-btn">With Room</button>
+          <button class="filter-btn">Without Room</button>
+        </div>
+        
+        <div class="table-scroll-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Block</th>
+                <th>Room</th>
+                <th>Merit</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2023479966</td>
+                <td>ALT BIN AHMAD</td>
+                <td>HT</td>
+                <td>HT123</td>
+                <td class="merit-high">17</td>
+                <td class="status-approved">APPROVED</td>
+                <td class="action-cell">
+                  <button class="icon-btn view-btn" title="View">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                  <button class="icon-btn edit-btn" title="Edit">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>2023465578</td>
+                <td>ABU BIN BAKAR</td>
+                <td>-</td>
+                <td>-</td>
+                <td class="merit-low">4.6</td>
+                <td class="status-not-approved">NOT APPROVED</td>
+                <td class="action-cell">
+                  <button class="icon-btn view-btn" title="View">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                  <button class="icon-btn edit-btn" title="Edit">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>202349986</td>
+                <td>AKMAL BIN ISMAIL</td>
+                <td>HT</td>
+                <td>HT023</td>
+                <td class="merit-high">39</td>
+                <td class="status-approved">APPROVED</td>
+                <td class="action-cell">
+                  <button class="icon-btn view-btn" title="View">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                  <button class="icon-btn edit-btn" title="Edit">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>2023167786</td>
+                <td>ALLAA BIN HASHIM</td>
+                <td>TF</td>
+                <td>TF889</td>
+                <td class="merit-high">22</td>
+                <td class="status-approved">APPROVED</td>
+                <td class="action-cell">
+                  <button class="icon-btn view-btn" title="View">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                  <button class="icon-btn edit-btn" title="Edit">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>2023497756</td>
+                <td>ATMA BIN DAUD</td>
+                <td>TF</td>
+                <td>TF889</td>
+                <td class="merit-medium">15</td>
+                <td class="status-approved">APPROVED</td>
+                <td class="action-cell">
+                  <button class="icon-btn view-btn" title="View">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                  <button class="icon-btn edit-btn" title="Edit">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>2023789976</td>
+                <td>HAZIQ BIN ROSLI</td>
+                <td>HT</td>
+                <td>HT012</td>
+                <td class="merit-high">36</td>
+                <td class="status-approved">APPROVED</td>
+                <td class="action-cell">
+                  <button class="icon-btn view-btn" title="View">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                  <button class="icon-btn edit-btn" title="Edit">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>2024449553</td>
+                <td>HAKIM BIN FARID</td>
+                <td>-</td>
+                <td>-</td>
+                <td class="merit-medium">9.1</td>
+                <td class="status-not-approved">NOT APPROVED</td>
+                <td class="action-cell">
+                  <button class="icon-btn view-btn" title="View">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                  <button class="icon-btn edit-btn" title="Edit">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="notice-panel">
+      <h2>Notice</h2>
+      <ul class="notice-list">
+        <li>🎉 Events & Celebrations</li>
+        <li>Cultural Day / Fest Notices</li>
+        <li>Sports Day / E-Sports Tournament</li>
+        <li>Freshers' Orientation Schedule</li>
+        <li>Graduation Ceremony Details</li>
+        <li>Student Club Recruitment / Open Day</li>
+        <li>Photography / Art / Debate Competitions</li>
+        <li>Personal Growth & Support</li>
+        <li>Mental Health Awareness Events</li>
+        <li>Motivational Quotes / "Student of the Week" Spotlight</li>
+        <li>Counseling Sessions Schedule</li>
+        <li>Time Management or Study Skills Workshops</li>
+        <li>Language Exchange or Toastmasters Meetups</li>
+      </ul>
+    </div>
+  </div>
+  <footer>
+    <hr />
+    &copy; 2023 Titan Company
+  </footer>
+</body>
+</html>
